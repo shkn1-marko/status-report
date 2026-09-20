@@ -4,6 +4,8 @@ import android.util.Log
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 
+import com.shkn1marko.statrep.model.DeployStatus
+
 class StatRepMessagingService : FirebaseMessagingService() {
 
     override fun onRegistered(installationId: String) {
@@ -13,8 +15,13 @@ class StatRepMessagingService : FirebaseMessagingService() {
 
     override fun onMessageReceived(message: RemoteMessage) {
         super.onMessageReceived(message)
-        Log.d(TAG, "Message received from: ${message.from}")
-        Log.d(TAG, "Message data payload: ${message.data}")
+
+        val status = DeployStatus.fromData(message.data)
+        if (status != null) {
+            Log.d(TAG, "Parsed DeployStatus: $status")
+        } else {
+            Log.w(TAG, "Failed to parse DeployStatus from data: ${message.data}")
+        }
     }
 
     companion object {
