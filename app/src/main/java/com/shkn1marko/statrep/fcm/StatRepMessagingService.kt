@@ -10,6 +10,8 @@ import kotlinx.coroutines.launch
 import com.shkn1marko.statrep.db.DeployStatusRepository
 import com.shkn1marko.statrep.db.StatRepDatabase
 import com.shkn1marko.statrep.model.DeployStatus
+import com.shkn1marko.statrep.notification.AppLifecycleObserver
+import com.shkn1marko.statrep.notification.DeployStatusNotifier
 
 class StatRepMessagingService : FirebaseMessagingService() {
 
@@ -19,7 +21,7 @@ class StatRepMessagingService : FirebaseMessagingService() {
 
     override fun onRegistered(installationId: String) {
         super.onRegistered(installationId)
-        Log.d(TAG, "FCM installation ID: $installationId")
+        Log.d("StatRepMessaging", "FCM installation ID: $installationId")
     }
 
     override fun onMessageReceived(message: RemoteMessage) {
@@ -27,16 +29,13 @@ class StatRepMessagingService : FirebaseMessagingService() {
 
         val status = DeployStatus.fromData(message.data)
         if (status != null) {
-            Log.d(TAG, "Parsed DeployStatus: $status")
             CoroutineScope(Dispatchers.IO).launch {
                 repository.insert(status)
             }
-        } else {
-            Log.w(TAG, "Failed to parse DeployStatus from data: ${message.data}")
-        }
-    }
 
-    companion object {
-        private const val TAG = "StatRepMessaging"
+            if (!AppLifecycleObserver.isInForeground) {
+                DeployStatusNotifier.notify(this, status)
+            }
+        }
     }
 }
