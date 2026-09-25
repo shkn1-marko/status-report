@@ -20,6 +20,7 @@ import androidx.compose.ui.Modifier
 import com.shkn1marko.statrep.ui.theme.StatRepTheme
 import com.shkn1marko.statrep.ui.StatRepViewModel
 import com.shkn1marko.statrep.model.DeployStatus
+import com.shkn1marko.statrep.notification.AppLifecycleObserver
 
 class MainActivity : ComponentActivity() {
 
@@ -31,6 +32,7 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        AppLifecycleObserver.init()
         askNotificationPermission(requestPermissionLauncher)
         enableEdgeToEdge()
         setContent {
