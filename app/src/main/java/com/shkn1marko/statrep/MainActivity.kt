@@ -16,6 +16,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.core.app.NotificationManagerCompat
 
 import com.shkn1marko.statrep.ui.theme.StatRepTheme
 import com.shkn1marko.statrep.ui.StatRepViewModel
@@ -51,6 +52,7 @@ class MainActivity : ComponentActivity() {
     override fun onResume() {
         super.onResume()
         viewModel.deleteExpired()
+        NotificationManagerCompat.from(this).cancelAll()
     }
 }
 
