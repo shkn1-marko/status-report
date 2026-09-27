@@ -16,8 +16,8 @@ import androidx.core.content.ContextCompat
 import com.shkn1marko.statrep.R
 import com.shkn1marko.statrep.model.DeployStatus
 import com.shkn1marko.statrep.MainActivity
-import com.shkn1marko.statrep.ui.theme.StatusGreen
-import com.shkn1marko.statrep.ui.theme.StatusRed
+import com.shkn1marko.statrep.ui.theme.NotificationSuccessColor
+import com.shkn1marko.statrep.ui.theme.NotificationFailureColor
 
 import java.util.concurrent.atomic.AtomicInteger
 
@@ -37,13 +37,13 @@ object DeployStatusNotifier {
     private fun buildNotificationContent(status: DeployStatus): NotificationContent =
         if (status.isSuccess) {
             NotificationContent(
-                color = StatusGreen,
+                color = NotificationSuccessColor,
                 title = "OK : ${status.name}",
                 text = "All systems go - nothing needs your attention."
             )
         } else {
             NotificationContent(
-                color = StatusRed,
+                color = NotificationFailureColor,
                 title = "ERR : ${status.name}",
                 text = "Heads up - something went wrong. Tap for details."
             )
