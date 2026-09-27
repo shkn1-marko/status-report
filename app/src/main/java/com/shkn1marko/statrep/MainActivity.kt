@@ -8,11 +8,7 @@ import androidx.activity.viewModels
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -20,8 +16,8 @@ import androidx.core.app.NotificationManagerCompat
 
 import com.shkn1marko.statrep.ui.theme.StatRepTheme
 import com.shkn1marko.statrep.ui.StatRepViewModel
-import com.shkn1marko.statrep.model.DeployStatus
 import com.shkn1marko.statrep.notification.AppLifecycleObserver
+import com.shkn1marko.statrep.ui.DeployStatusList
 
 class MainActivity : ComponentActivity() {
 
@@ -53,14 +49,5 @@ class MainActivity : ComponentActivity() {
         super.onResume()
         viewModel.deleteExpired()
         NotificationManagerCompat.from(this).cancelAll()
-    }
-}
-
-@Composable
-fun DeployStatusList(statuses: List<DeployStatus>, modifier: Modifier = Modifier) {
-    LazyColumn(modifier = modifier) {
-        items(statuses) { status ->
-            Text("${status.name} - ${status.buildStatus} / ${status.deployStatus}")
-        }
     }
 }
