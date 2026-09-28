@@ -22,7 +22,7 @@ data class DeployStatus(
 
     companion object {
         fun fromData(data: Map<String, String>): DeployStatus? {
-            val name = data["name"] ?: return null
+            val name = limitLength(data["name"], 50) ?: return null
             val buildStatus = data["buildStatus"]?.let { parseStageStatus(it) } ?: return null
             val deployStatus = data["deployStatus"]?.let { parseStageStatus(it) } ?: return null
             val timestamp = data["timestamp"]?.toLongOrNull() ?: return null
@@ -31,13 +31,16 @@ data class DeployStatus(
                 name = name,
                 buildStatus = buildStatus,
                 deployStatus = deployStatus,
-                cause = data["cause"],
-                output = data["output"],
+                cause = limitLength(data["cause"], 500),
+                output = limitLength(data["output"], 1500),
                 timestamp = timestamp
             )
         }
 
         private fun parseStageStatus(value: String): StageStatus? =
             runCatching { enumValueOf<StageStatus>(value) }.getOrNull()
+
+        private fun limitLength(value: String?, maxLength: Int): String? =
+            value?.let { if (it.length > maxLength) it.take(maxLength) else it }
     }
 }
