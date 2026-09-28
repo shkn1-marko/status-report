@@ -16,3 +16,6 @@ val TagFailureText = Color.White
 val TagSkippedBackground = Color.Gray
 val TagSkippedBorder = Color.Gray
 val TagSkippedText = Color.White
+
+val CardBackgroundColor = Color.White
+val TimestampTextColor = Color.Gray
