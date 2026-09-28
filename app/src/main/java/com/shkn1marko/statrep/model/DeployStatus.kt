@@ -17,6 +17,9 @@ data class DeployStatus(
     val isSuccess: Boolean
         get() = buildStatus == StageStatus.OK && deployStatus == StageStatus.OK
 
+    val hasDetails: Boolean
+        get() = cause != null || output != null
+
     companion object {
         fun fromData(data: Map<String, String>): DeployStatus? {
             val name = data["name"] ?: return null
