@@ -1,6 +1,5 @@
 package com.shkn1marko.statrep.fcm
 
-import android.util.Log
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import kotlinx.coroutines.CoroutineScope
@@ -21,7 +20,9 @@ class StatRepMessagingService : FirebaseMessagingService() {
 
     override fun onRegistered(installationId: String) {
         super.onRegistered(installationId)
-        Log.d("StatRepMessaging", "FCM installation ID: $installationId")
+        CoroutineScope(Dispatchers.IO).launch {
+            GoDeployServer.registerDevice(installationId)
+        }
     }
 
     override fun onMessageReceived(message: RemoteMessage) {
