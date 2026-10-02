@@ -32,6 +32,11 @@ android {
             "GODEPLOY_BASE_URL",
             "\"${localProperties.getProperty("godeploy.baseUrl", "")}\""
         )
+        buildConfigField(
+            "String",
+            "GODEPLOY_REGISTER_SECRET",
+            "\"${localProperties.getProperty("godeploy.registerSecret", "")}\""
+        )
     }
 
     buildTypes {
