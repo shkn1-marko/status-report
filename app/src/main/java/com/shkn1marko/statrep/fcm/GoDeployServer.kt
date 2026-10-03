@@ -28,6 +28,7 @@ object GoDeployServer {
             connection.setRequestProperty("X-GDEP-Signature-256", "sha256=$signature")
 
             connection.outputStream.use { it.write(body.toByteArray()) }
+            connection.responseCode // force the request to complete
         } finally {
             connection.disconnect()
         }
