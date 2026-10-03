@@ -4,12 +4,11 @@ An Android app that shows build and deploy results from a [go-deploy](https://gi
 
 When go-deploy finishes a deployment, it sends a Firebase Cloud Messaging (FCM) message to every registered device. StatRep saves each result on the device with Room, shows it in a list, and posts a notification if the app is in the background.
 
-<table>
-  <tr>
-    <td valign="top"><img src="docs/notifications.jpg" alt="OK and ERR deploy notifications" width="300"></td>
-    <td valign="top"><img src="docs/app.jpg" alt="StatRep deploy status list with an expanded failure" width="300"></td>
-  </tr>
-</table>
+<p align="center">
+  <img src="docs/notifications.jpg" alt="OK and ERR deploy notifications" width="300">
+  &nbsp;&nbsp;&nbsp;&nbsp;
+  <img src="docs/app.jpg" alt="StatRep deploy status list with an expanded failure" width="300">
+</p>
 
 ## Server integration
 
