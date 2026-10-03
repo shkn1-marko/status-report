@@ -14,6 +14,8 @@
 .externalNativeBuild
 .cxx
 local.properties
+# Network
+/app/src/main/res/xml/network_security_config.xml
 # Firebase
 google-services.json
 # Signing keys
